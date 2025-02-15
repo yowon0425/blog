@@ -1,0 +1,58 @@
+/* 전체 페이지 배경 스타일 */
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to right, #4facfe, #00f2fe); /* 파란색 그라데이션 */
+  color: white;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+/* 검정색 배경을 투명하게 변경 */
+.App-header {
+  background: transparent !important; /* ✅ 검정색 배경 제거 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 20px;
+}
+
+/* 입력창 스타일 */
+input {
+  padding: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  margin: 10px;
+  text-align: center;
+}
+
+/* 버튼 스타일 */
+button {
+  background-color: rgba(255, 255, 255, 0.3);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* 날씨 정보 스타일 */
+.weather-container p {
+  font-size: 1.2rem;
+  margin: 5px 0;
+}
+
+.weather-container p:last-child {
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: #ffeb3b;
+}

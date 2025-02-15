@@ -4,7 +4,7 @@ import './App.css';
 
 const API_KEY = "b0e97724140f26c54ec84685d87b7a95";
 
-function App() {
+function Weather() {
   const [weather, setWeather] = useState(null);
   const [location, setLocation] = useState('Seoul');
   const [error, setError] = useState(null);
@@ -76,4 +76,5 @@ function App() {
   );
 }
 
-export default App;
+// ✅ 올바르게 export 하기
+export default Weather;

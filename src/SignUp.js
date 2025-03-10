@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
-import './App.css'; // CSS 파일을 따로 만들어 스타일을 관리할 수 있습니다.
 
 function SignUp() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isSignedUp, setIsSignedUp] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // 여기에 실제 회원가입 로직을 구현합니다.
-    console.log('회원가입:', { username, email, password });
-    // 회원가입 성공 후 처리 (예: 홈페이지로 리다이렉트)
+    if (username && email && password) {
+      console.log('회원가입:', { username, email, password });
+      setIsSignedUp(true);
+      // 가입 성공 후 입력 필드를 초기화
+      setUsername('');
+      setEmail('');
+      setPassword('');
+    }
   };
 
   return (
@@ -40,6 +45,7 @@ function SignUp() {
         />
         <button type="submit">가입하기</button>
       </form>
+      {isSignedUp && <p style={{ color: 'green' }}>가입이 완료되었습니다!</p>}
     </div>
   );
 }

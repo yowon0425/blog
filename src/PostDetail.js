@@ -1,13 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
 
-function PostDetail({ post, onClose }) {
+const db = getFirestore();
+
+function PostDetail() {
+  const { id } = useParams();
+  const [post, setPost] = useState(null);
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      const docRef = doc(db, 'posts', id);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setPost(docSnap.data());
+      } else {
+        console.log('No such document!');
+      }
+    };
+    fetchPost();
+  }, [id]);
+
   return (
-    <div className="post-detail">
-      <button onClick={onClose}>닫기</button>
-      <h2>{post.title}</h2>
-      <img src={post.imageUrl} alt={post.title} />
-      <p>{post.content}</p>
-      <p>작성 시간: {new Date(post.timestamp).toLocaleString()}</p>
+    <div>
+      {post && (
+        <div>
+          <h2>{post.title}</h2>
+          <img src={post.imageUrl} alt={post.title} />
+          <p>{post.content}</p>
+        </div>
+      )}
     </div>
   );
 }

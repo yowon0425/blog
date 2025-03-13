@@ -1,40 +1,54 @@
 import React, { useState } from 'react';
+import { auth, signInWithEmailAndPassword, signInWithPopup, provider } from './firebase';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLogged, setIsLogged] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleEmailLogin = async (e) => {
     e.preventDefault();
-    if (email && password) {
-      console.log('로그인:', { email, password });
-      setIsLogged(true);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log('로그인 성공!');
+      navigate('/posts'); // 로그인 성공 시 PostList 페이지로 이동
+    } catch (error) {
+      console.error(error);
+      alert('로그인 실패: ' + error.message);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      console.log('Google 로그인 성공:', user);
+      navigate('/posts'); // 로그인 성공 시 PostList 페이지로 이동
+    } catch (error) {
+      console.error('Google 로그인 실패:', error);
     }
   };
 
   return (
-    <div className="login-container">
-      <h2>로그인</h2>
-      <form onSubmit={handleSubmit} className="login-form">
+    <div>
+      <form onSubmit={handleEmailLogin}>
         <input
           type="email"
           placeholder="이메일"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
         />
         <input
           type="password"
           placeholder="비밀번호"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
         />
         <button type="submit">로그인</button>
       </form>
-      {isLogged && <p style={{ color: 'green' }}>로그인 성공!</p>}
+      <button onClick={handleGoogleLogin}>Google로 로그인</button>
       <p>아이디가 없으신가요? <Link to="/signup">회원가입</Link></p>
     </div>
   );

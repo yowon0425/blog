@@ -11,17 +11,23 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <nav>
+          <ul>
+            <li><Link to="/posts">게시물 보기</Link></li>
+            <li><Link to="/signup">회원가입</Link></li>
+          </ul>
+        </nav>
+
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/posts" element={
             <>
-              <h1>게시물 목록</h1>
-              {/* 게시물 목록 및 추가 기능 구현 */}
               <PostList />
               <AddPost />
             </>
           } />
+          <Route path="/post/:id" element={<PostDetail />} />
         </Routes>
       </div>
     </Router>

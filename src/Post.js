@@ -1,9 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-function Post({ imageUrl, onClick }) {
+function Post({ post }) {
   return (
-    <div className="post" onClick={onClick}>
-      <img src={imageUrl} alt="Post" />
+    <div className="post">
+      <Link to={`/post/${post.id}`}>
+        <img src={post.imageUrl} alt={post.title} />
+      </Link>
     </div>
   );
 }

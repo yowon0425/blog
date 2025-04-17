@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from './firebase';
 import Post from './Post';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
-
-const db = getFirestore();
+import Profile from './Profile';
+import './PostList.css';
 
 function PostList() {
   const [posts, setPosts] = useState([]);
@@ -11,17 +12,25 @@ function PostList() {
     const fetchPosts = async () => {
       const postsRef = collection(db, 'posts');
       const querySnapshot = await getDocs(postsRef);
-      const postsData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      const postsData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
       setPosts(postsData);
     };
+
     fetchPosts();
   }, []);
 
   return (
-    <div className="post-list">
-      {posts.map((post) => (
-        <Post key={post.id} post={post} />
-      ))}
+    <div className="page-wrapper">
+      <Profile showSettings={true} />
+
+      <div className="post-grid">
+        {posts.map((post) => (
+          <Post key={post.id} post={post} />
+        ))}
+      </div>
     </div>
   );
 }

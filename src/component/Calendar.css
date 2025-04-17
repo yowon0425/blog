@@ -1,0 +1,68 @@
+/* Calendar.css */
+
+/* 달력 셀 스타일 */
+.calendar-cell {
+    cursor: pointer;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+  }
+  
+  .calendar-cell.selected {
+    background-color: lightblue;
+  }
+  
+  /* 마크된 날짜(점) 스타일 */
+  .marked-dot {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: red;
+  }
+  
+  /* 테이블 스타일 */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  th {
+    background-color: #f4f4f4;
+  }
+  
+  /* 하단바 */
+  .todo-buttons-container {
+    margin-top: 20px;  /* 다른 요소들과 간격 */
+    display: flex;
+    justify-content: flex-end;  /* 오른쪽 끝 정렬 */
+    align-items: center;
+    gap: 10px;  /* 버튼들 사이 간격 */
+    margin-bottom: 20px; /* 페이지 하단과의 간격 */
+    position: relative;
+  }
+  
+  .todo-buttons-container button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background-color: #000; /* 배경색을 검정색으로 변경 */
+    color: #fff;  /* 텍스트 색을 흰색으로 변경 */
+  }
+  
+  .todo-buttons-container input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 10px; /* 입력창과 버튼 사이 간격 */
+    width: 200px; /* 입력창 크기 설정 */
+  }
+  

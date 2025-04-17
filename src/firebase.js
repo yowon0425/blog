@@ -1,6 +1,12 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { GoogleAuthProvider } from 'firebase/auth';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider
+} from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore'; // ✅ 추가
 
 const firebaseConfig = {
   apiKey: "AIzaSyBz72PaTnXu2w9BDGeX0zoNq1ogi56S6K8",
@@ -15,5 +21,14 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
+const db = getFirestore(app); // ✅ Firestore 인스턴스 생성
 
-export { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, provider };
+// ✅ 필요한 것들 모두 export
+export {
+  auth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  provider,
+  db
+};

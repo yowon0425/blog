@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
-import { auth, createUserWithEmailAndPassword } from './firebase';
+import {
+  auth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  provider
+} from './firebase';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
+import './SignUp.css';
 
 const db = getFirestore();
 
@@ -9,6 +17,7 @@ function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSignedUp, setIsSignedUp] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,26 +37,49 @@ function SignUp() {
       const userCredential = await createUserWithEmailAndPassword(auth, emailTrimmed, password);
       const user = userCredential.user;
 
-      // 사용자 추가 정보를 Firestore에 저장
       await setDoc(doc(db, 'users', user.uid), {
         username,
         email: emailTrimmed,
       });
 
       setIsSignedUp(true);
-      console.log('회원가입 성공!');
+      navigate('/post'); // ✅ 회원가입 성공 후 이동
     } catch (error) {
       console.error(error);
       alert('회원가입 실패: ' + error.message);
     }
   };
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      alert(`${user.email}님 환영합니다!`);
+      navigate('/post'); // ✅ 로그인 성공 후 이동
+    } catch (error) {
+      alert('로그인 실패: ' + error.message);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      alert(`${user.displayName || user.email}님 구글 로그인 성공!`);
+      navigate('/post'); // ✅ 구글 로그인 성공 후 이동
+    } catch (error) {
+      alert('구글 로그인 실패: ' + error.message);
+    }
+  };
+
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="signup-wrapper">
+      <form onSubmit={handleSubmit} className="signup-form">
+        <h2>회원가입 / 로그인</h2>
         <input
           type="text"
-          placeholder="사용자 이름"
+          placeholder="사용자 이름 (회원가입용)"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
@@ -63,9 +95,13 @@ function SignUp() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">가입하기</button>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <button type="submit">📌 새로 가입하기</button>
+          <button onClick={handleLogin}>🔑 로그인하기</button>
+          <button type="button" onClick={handleGoogleLogin}>🟢 구글로 로그인</button>
+        </div>
+        {isSignedUp && <p className="success-message">🎉 회원가입 완료!</p>}
       </form>
-      {isSignedUp && <p style={{ color: 'green' }}>회원 가입이 완료되었습니다!</p>}
     </div>
   );
 }

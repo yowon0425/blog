@@ -1,18 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './Post.css';
 
-function Post({ post }) {
-  const fallbackImage = "https://via.placeholder.com/300x200?text=No+Image";
-
+function Post({ post, onDelete }) {
   return (
     <div className="post">
       <Link to={`/post/${post.id}`}>
-        <img
-          src={post.imageUrl || fallbackImage}
-          alt={post.title || "이미지"}
-          style={{ width: "300px", height: "200px", objectFit: "cover" }}
-        />
+        <img src={post.imageUrl} alt={post.title} />
       </Link>
+      <div className="post-footer">
+        <span>{post.title}</span>
+        <button className="delete-btn" onClick={onDelete}>삭제</button>
+      </div>
     </div>
   );
 }

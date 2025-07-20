@@ -14,16 +14,16 @@
   }
   
   .App-header {
-    background-color: #282c34;
+    background-color: #ffffff; /* 흰색 배경으로 변경 */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     font-size: calc(10px + 2vmin);
-    color: white;
+    color: #333; /* 글자색 어둡게 변경 */
   }
-  
+
   .App-link {
     color: #61dafb;
   }
@@ -265,3 +265,90 @@
       transform: rotate(360deg);
     }
   }
+
+/* ===== 다크모드 / 라이트모드 전환용 ===== */
+body.light {
+  background-color: #ffffff;
+  color: #222222;
+}
+
+body.dark {
+  background-color: #2b2d30;  /* 부드러운 다크 그레이 */
+  color: #dddddd;
+}
+
+body.dark .App-header {
+  background-color: #2b2d30;
+  color: #dddddd;
+}
+
+
+body.light .App-header {
+  background-color: #ffffff;
+  color: #222222;
+}
+
+/* 카드나 컨테이너에 적용할 다크 배경 톤 */
+body.dark .post-detail,
+body.dark .modal-content,
+body.dark .signup-container,
+body.dark .login-container {
+  background-color: #3a3a3a;
+  color: #f1f1f1;
+}
+
+body.dark .App {
+  color: #dddddd;
+}
+
+body.dark .weather-container,
+body.dark .post,
+body.dark .post-list,
+body.dark .form-buttons,
+body.dark .modal,
+body.dark .add-post-form input,
+body.dark .add-post-form textarea {
+  color: #f1f1f1;
+  background-color: transparent;
+}
+
+body.dark input,
+body.dark textarea {
+  background-color: #444;
+  color: #f1f1f1;
+  border: 1px solid #666;
+}
+
+body.dark button {
+  background-color: #555;
+  color: white;
+}
+
+body.dark button:hover {
+  background-color: #777;
+}
+
+/* 캘린더 상단 제목 텍스트 (예: "2025년 7월") */
+body.dark .react-calendar__navigation__label {
+  color: #ffffff;
+}
+
+/* 좌우 화살표 (← →) 버튼 */
+body.dark .react-calendar__navigation button {
+  color: #ffffff;
+}
+
+/* 요일 헤더 (일, 월, 화 등) */
+body.dark .react-calendar__month-view__weekdays {
+  color: #f1f1f1;
+}
+
+/* 날짜 숫자 */
+body.dark .react-calendar__tile {
+  color: #e6e6e6;
+}
+
+/* 날짜 hover 시 */
+body.dark .react-calendar__tile:hover {
+  background-color: #444;
+}

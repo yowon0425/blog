@@ -163,8 +163,7 @@ function Profile({ showSettings }) {
             <p className="status-message">{statusMessage}</p>
             <div className="profile-stats">
               <div><strong>{postCount}</strong> 게시물</div>
-              <div><strong>{followers}</strong> 팔로워</div>
-              <div><strong>{following}</strong> 팔로잉</div>
+
             </div>
           </div>
         </div>
